@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Splitter</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Login View -->
+  <div id="view-login" class="view">
+    <div class="login-container">
+      <h1>Copeland Leaderboard</h1>
+
+      <!-- Step 1: PIN entry -->
+      <div id="login-step-pin">
+        <p class="subtitle">Enter your group PIN to continue</p>
+        <form id="login-form">
+          <input type="password" id="pin-input" placeholder="Enter PIN" autocomplete="off" required>
+          <button type="submit" id="login-btn">Next</button>
+        </form>
+        <p id="login-error" class="error hidden"></p>
+      </div>
+
+      <!-- Step 2: Name selection -->
+      <div id="login-step-name" class="hidden">
+        <p class="subtitle">Who are you?</p>
+        <select id="login-name-selector" class="login-select">
+          <option value="">Select your name</option>
+        </select>
+        <button id="login-continue-btn" class="btn-primary" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard View -->
+  <div id="view-dashboard" class="view hidden">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <h1 id="group-name">Copeland Leaderboard</h1>
+      </div>
+      <div class="header-right">
+        <span id="user-display" class="user-display"></span>
+        <button id="logout-btn" class="btn-icon" title="Log out">Logout</button>
+      </div>
+    </header>
+
+    <!-- Month Selector -->
+    <div class="month-bar">
+      <button id="prev-month" class="btn-icon">&larr;</button>
+      <span id="current-month-label"></span>
+      <button id="next-month" class="btn-icon">&rarr;</button>
+    </div>
+
+    <!-- Combined Expenses & Balances -->
+    <section id="expenses-section" class="card">
+      <div class="section-header">
+        <h2>Expenses</h2>
+        <button id="add-expense-btn" class="btn-primary">+ Add Expense</button>
+      </div>
+      <div id="expenses-list">
+        <p class="placeholder">Loading...</p>
+      </div>
+
+      <!-- Balance Summary (inline below expenses) -->
+      <div id="balance-content" class="balance-inline">
+        <p class="placeholder">Loading balances...</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Add/Edit Expense Modal -->
+  <div id="expense-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add Expense</h2>
+        <button id="modal-close" class="btn-icon">&times;</button>
+      </div>
+      <form id="expense-form">
+        <div class="form-group">
+          <label for="expense-date">Date</label>
+          <input type="date" id="expense-date" required>
+        </div>
+        <div class="form-group">
+          <label for="expense-description">Description</label>
+          <input type="text" id="expense-description" placeholder="e.g., Groceries" required>
+        </div>
+        <div class="form-group">
+          <label for="expense-amount">Amount</label>
+          <input type="number" id="expense-amount" step="0.01" min="0.01" placeholder="0.00" required>
+        </div>
+        <div class="form-group">
+          <label for="expense-location">Location</label>
+          <input type="text" id="expense-location" placeholder="e.g., Costco">
+        </div>
+        <div class="form-group">
+          <label for="expense-paidby">Paid By</label>
+          <select id="expense-paidby" required>
+            <option value="">Select who paid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="expense-scheme">Split Scheme</label>
+          <select id="expense-scheme" required>
+            <option value="">Select a scheme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Split Among</label>
+          <div id="expense-members" class="checkbox-group"></div>
+        </div>
+
+        <!-- Custom weights (shown when "Custom" scheme is selected) -->
+        <div id="custom-weights-group" class="form-group hidden">
+          <label>Custom Weights</label>
+          <div id="custom-weights"></div>
+        </div>
+
+        <!-- Split Preview -->
+        <div id="split-preview" class="split-preview hidden">
+          <h4>Split Preview</h4>
+          <div id="split-preview-content"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="expense-cancel" class="btn-secondary">Cancel</button>
+          <button type="submit" id="expense-submit" class="btn-primary">Save Expense</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Balance Detail Modal -->
+  <div id="balance-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Balance Details</h2>
+        <button id="balance-modal-close" class="btn-icon">&times;</button>
+      </div>
+      <div id="balance-detail-content"></div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/balance.js"></script>
+  <script src="js/expenses.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

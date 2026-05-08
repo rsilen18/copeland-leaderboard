@@ -1,0 +1,16 @@
+# Project planning (local only)
+PLAN.md
+TASKS.md
+BUGS.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
